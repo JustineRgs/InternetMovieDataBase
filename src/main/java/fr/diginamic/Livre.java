@@ -3,14 +3,24 @@ package fr.diginamic;
 import jakarta.persistence.*;
 import org.hibernate.annotations.Columns;
 
+import java.util.List;
+
 @Entity
 @Table(name = "livre")
 public class Livre {
 	@Id
-	private int id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID")
+	private Long id;
 
+	@Column(name = "TITRE")
 	private String titre;
+
+	@Column(name = "AUTEUR")
 	private String auteur;
+
+	@ManyToMany(mappedBy = "livres")
+	private List<Emprunt> emprunts;
 
 	@PersistenceContext
 	private static EntityManager entityManager;
@@ -63,16 +73,10 @@ public class Livre {
 	/**
 	 * @return the id
 	 */
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(int id) {
-		this.id = id;
-	}
 
 	/**
 	 * @return the titre
