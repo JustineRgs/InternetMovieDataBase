@@ -1,13 +1,7 @@
 package fr.diginamic;
 
+import jakarta.persistence.*;
 import org.hibernate.annotations.Columns;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Persistence;
-import jakarta.persistence.Table;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 
 @Entity
 @Table(name = "livre")
@@ -24,9 +18,47 @@ public class Livre {
 		entityManager = Persistence.createEntityManagerFactory("bibliotheque").createEntityManager();
 	}
 
+	// Constructeur sans argument
+	public Livre() {
+	}
+
+	// Votre constructeur existant
+	public Livre(String titre, String auteur) {
+		this.titre = titre;
+		this.auteur = auteur;
+	}
+
 	public static Livre getLivreById(int id) {
 		return entityManager.find(Livre.class, id);
 	}
+
+	public static void addLivre(Livre livre) {
+		EntityTransaction transaction = entityManager.getTransaction();
+		transaction.begin();
+		entityManager.persist(livre);
+		transaction.commit();
+	}
+
+	public static void updateLivre(Livre livre) {
+		EntityTransaction transaction = entityManager.getTransaction();
+		transaction.begin();
+		entityManager.merge(livre);
+		transaction.commit();
+	}
+
+	public static void deleteLivre(int id) {
+		Livre livre = entityManager.find(Livre.class, id);
+		if (livre != null) {
+			EntityTransaction transaction = entityManager.getTransaction();
+			transaction.begin();
+			entityManager.remove(livre);
+			transaction.commit();
+		} else {
+			System.out.println("Livre non trouvé avec l'ID : " + id);
+		}
+	}
+
+
 
 	/**
 	 * @return the id
@@ -69,19 +101,4 @@ public class Livre {
 	public void setAuteur(String auteur) {
 		this.auteur = auteur;
 	}
-
-	/**
-	 * @return the entityManager
-	 */
-	public static EntityManager getEntityManager() {
-		return entityManager;
-	}
-
-	/**
-	 * @param entityManager the entityManager to set
-	 */
-	public static void setEntityManager(EntityManager entityManager) {
-		Livre.entityManager = entityManager;
-	}
-
 }
