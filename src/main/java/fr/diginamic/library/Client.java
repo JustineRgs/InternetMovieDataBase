@@ -1,4 +1,4 @@
-package fr.diginamic;
+package fr.diginamic.library;
 
 import jakarta.persistence.*;
 
@@ -7,6 +7,7 @@ import java.util.*;
 @Entity
 @Table(name = "CLIENT")
 public class Client {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")

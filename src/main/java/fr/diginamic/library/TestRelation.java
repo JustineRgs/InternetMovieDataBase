@@ -1,4 +1,4 @@
-package fr.diginamic;
+package fr.diginamic.library;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
