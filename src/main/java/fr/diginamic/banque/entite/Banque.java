@@ -2,28 +2,40 @@ package fr.diginamic.banque.entite;
 
 import jakarta.persistence.*;
 
+import java.util.Set;
+
 @Entity
-@Table(name = "Banque")
+@Table(name = "BANQUE")
 public class Banque {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "ID")
+    private Integer id;
+
+    @Column(name = "nom")
     private String nom;
 
     @OneToMany(mappedBy = "banque")
-    private Client client;
+    private Set<Client> clients;
 
-    public Banque(Long id, String nom, Client client) {
-        this.id = id;
-        this.nom = nom;
-        this.client = client;
+    public Banque() {
     }
 
-    public Long getId() {
+    public Banque(String nom, Set<Client> clients) {
+        this.nom = nom;
+        this.clients = clients;
+    }
+
+    @Override
+    public String toString() {
+        return "ID : " + id + ", nom : " + nom;
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -35,11 +47,11 @@ public class Banque {
         this.nom = nom;
     }
 
-    public Client getClient() {
-        return client;
+    public Set<Client> getClients() {
+        return clients;
     }
 
-    public void setClient(Client client) {
-        this.client = client;
+    public void setClients(Set<Client> clients) {
+        this.clients = clients;
     }
 }

@@ -1,22 +1,20 @@
 package fr.diginamic.banque;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 
 @Embeddable
 public class Adresse {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "NUMERO")
     private int numero;
+    @Column(name = "RUE")
     private String rue;
+    @Column(name = "CODE_POSTAL")
     private int codePostal;
+    @Column(name = "VILLE")
     private String ville;
 
     public Adresse() {
-
     }
 
     public Adresse(int numero, String rue, int codePostal, String ville) {
@@ -24,19 +22,6 @@ public class Adresse {
         this.rue = rue;
         this.codePostal = codePostal;
         this.ville = ville;
-    }
-
-    @Override
-    public String toString() {
-        return id + numero + rue + codePostal + ville;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public int getNumero() {
