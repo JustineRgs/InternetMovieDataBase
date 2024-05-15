@@ -24,6 +24,7 @@ public class Compte {
     @ManyToMany(mappedBy = "comptes")
     private Set<Client> clients;
 
+
     public Compte() {
     }
 

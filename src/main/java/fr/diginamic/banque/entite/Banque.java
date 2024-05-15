@@ -12,7 +12,7 @@ public class Banque {
     @Column(name = "ID")
     private Integer id;
 
-    @Column(name = "nom")
+    @Column(name = "NOM")
     private String nom;
 
     @OneToMany(mappedBy = "banque")
@@ -21,9 +21,8 @@ public class Banque {
     public Banque() {
     }
 
-    public Banque(String nom, Set<Client> clients) {
+    public Banque(String nom) {
         this.nom = nom;
-        this.clients = clients;
     }
 
     @Override

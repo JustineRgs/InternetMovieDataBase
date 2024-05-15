@@ -11,7 +11,7 @@ import java.util.Set;
 public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer ID;
 
     @Column(name = "NOM")
     private String nom;
@@ -38,21 +38,20 @@ public class Client {
     public Client() {
     }
 
-    public Client(String nom, String prenom, LocalDate dateNaissance, Banque banque, Adresse adresse, Integer id) {
+    public Client(String nom, String prenom, LocalDate dateNaissance, Banque banque, Adresse adresse) {
         this.nom = nom;
         this.prenom = prenom;
         this.dateNaissance = dateNaissance;
         this.banque = banque;
         this.adresse = adresse;
-        this.id = id;
     }
 
     public Integer getId() {
-        return id;
+        return ID;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setId(Integer ID) {
+        this.ID = ID;
     }
 
     public String getNom() {
@@ -93,5 +92,13 @@ public class Client {
 
     public void setAdresse(Adresse adresse) {
         this.adresse = adresse;
+    }
+
+    public Set<Compte> getComptes() {
+        return comptes;
+    }
+
+    public void setComptes(Set<Compte> comptes) {
+        this.comptes = comptes;
     }
 }
