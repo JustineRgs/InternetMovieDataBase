@@ -11,13 +11,8 @@ import index.JsonUtils;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "Acteur")
+@Table(name = "ACTEUR")
 @JsonIgnoreProperties(value = {"height", "roles"})
-@NamedQueries({
-        @NamedQuery(name = "Acteur.findByName", query = "SELECT a FROM Acteur a WHERE a.identite = :name"),
-        @NamedQuery(name = "Acteur.findById", query = "SELECT a FROM Acteur a WHERE a.id = :id"),
-        @NamedQuery(name = "Acteur.findById2", query = "SELECT a FROM Acteur a WHERE a.identite = :name or a.identite = :name2")
-})
 public class Acteur {
     @Id
     @Column(name = "ID")

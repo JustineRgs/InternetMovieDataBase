@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "Langue")
+@Table(name = "LANGUE")
 public class Langue {
     @Id
     @Column(name = "Label")
@@ -25,7 +25,7 @@ public class Langue {
     public Langue(String label) {
         this.label = label;
     }
-    
+
     /**
      * Retourne une représentation sous forme de chaîne de caractères de l'objet Langue,
      * contenant le libellé de la langue et la liste des films associés.

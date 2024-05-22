@@ -9,7 +9,7 @@ import index.JsonUtils;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "Realisateur")
+@Table(name = "REALISATEUR")
 public class Realisateur {
     @Id
     @Column(name = "ID")

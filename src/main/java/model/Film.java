@@ -12,11 +12,6 @@ import jakarta.persistence.*;
 
 @Entity
 @JsonIgnoreProperties(value = {"castingPrincipal"})
-@NamedQueries({
-        @NamedQuery(name = "Film.findByFilmName", query = "SELECT f FROM Film f WHERE f.nom = :film"),
-        @NamedQuery(name = "Film.findByDate", query = "SELECT f FROM Film f WHERE EXTRACT(YEAR FROM f.sortie) BETWEEN :before AND :after"),
-        @NamedQuery(name = "Film.findByFilmName2", query = "SELECT f FROM Film f WHERE f.nom = :film or f.nom = :film2")
-})
 public class Film {
     @Id
     private String id;
@@ -26,7 +21,7 @@ public class Film {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_lieu")
-    private Lieu lieu;
+    private LieuTournage lieuTournage;
 
     @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "T_Film_Realisateur_Associations",
@@ -158,12 +153,12 @@ public class Film {
     }
 
     @JsonProperty("lieuTournage")
-    public Lieu getLieu() {
-        return lieu;
+    public LieuTournage getLieu() {
+        return lieuTournage;
     }
 
-    public void setLieu(Lieu lieu) {
-        this.lieu = lieu;
+    public void setLieu(LieuTournage lieuTournage) {
+        this.lieuTournage = lieuTournage;
     }
 
     public List<Realisateur> getRealisateurs() {
@@ -195,7 +190,7 @@ public class Film {
         return "Film{" +
                 "id='" + id + '\'' +
                 ", pays=" + pays +
-                ", lieu=" + lieu +
+                ", lieu=" + lieuTournage +
                 ", realisateurs=" + realisateurs +
                 ", roles=" + roles +
                 ", genreList=" + genreList +
