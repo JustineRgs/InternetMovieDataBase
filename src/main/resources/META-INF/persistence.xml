@@ -6,22 +6,12 @@
     <persistence-unit name="InternetMovieDataBase" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <properties>
-            <!-- desactiver l'autodetection des classes de type @Entity -->
-            <property name="hibernate.archive.autodetection" value=""/>
-            <!-- Activation de la génération des tables manquantes uniquement -->
-            <property name="hibernate.hbm2ddl.auto" value="update"/>
-            <!-- Drop and create à chaque redémarrage -->
-            <property name="jakarta.persistence.schema-generation.database.action"
-                      value="drop-and-create"/>
-            <!-- Affichage des requêtes SQL -->
-            <property name="hibernate.show_sql" value="true"/>
-            <!-- Paramètres d'accès à la BDD -->
-            <property name="jakarta.persistence.jdbc.url"
-                      value="jdbc:mysql://localhost:3306/InternetMovieDataBase"/>
-            <property name="jakarta.persistence.jdbc.user"
-                      value="root"/>
-            <property name="jakarta.persistence.jdbc.password"
-                      value=""/>
+            <property name="jakarta.persistence.jdbc.url " value="jdbc:mysql://localhost/InternetMovieDataBase"/>
+            <property name="jakarta.persistence.jdbc.user" value="InternetMovieDataBase"/>
+            <property name="jakarta.persistence.jdbc.password" value="InternetMovieDataBase"/>
+            <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+            <property name="hibernate.hbm2ddl.auto" value="create"/>
+            <property name="hibernate.event.merge.entity_copy_observer" value="allow"/>
         </properties>
     </persistence-unit>
 </persistence>
