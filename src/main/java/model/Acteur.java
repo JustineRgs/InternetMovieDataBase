@@ -1,22 +1,17 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.NamedQueries;
-import jakarta.persistence.NamedQuery;
-import jakarta.persistence.OneToMany;
+import index.JsonUtils;
+import jakarta.persistence.*;
 
 @Entity
+@Table(name = "Acteur")
 @JsonIgnoreProperties(value = {"height", "roles"})
 @NamedQueries({
         @NamedQuery(name = "Acteur.findByName", query = "SELECT a FROM Acteur a WHERE a.identite = :name"),
@@ -25,84 +20,155 @@ import jakarta.persistence.OneToMany;
 })
 public class Acteur {
     @Id
+    @Column(name = "ID")
     private String id;
+
+    @Column(name = "identite")
+    private String identite;
+
+    @Column(name = "URL")
+    private String url;
+
+    @Column(name = "dateNaissance")
+    @Temporal(TemporalType.DATE)
+    private Date dateNaissance;
+
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "lieuNaissance")
+    private LieuNaissance lieuNaissance;
 
     @OneToMany(targetEntity = Role.class, mappedBy = "acteur")
     private List<Role> roles = new ArrayList<>();
 
-    private String identite;
-    private String dateNaissance;
+    /**
+     * Méthode privée utilisée pour désérialiser les données JSON relatives à la date de naissance et au lieu de naissance.
+     *
+     * @param naissance La carte contenant les informations sur la date de naissance et le lieu de naissance.
+     */
+    @JsonProperty("naissance")
+    private void unpackNested(Map<String, String> naissance) {
+        // Utilise la méthode utilitaire JsonUtils.unpackNestedDate pour extraire et traiter la date de naissance,
+        // puis utilise un Consumer pour définir la date extraite.
+        JsonUtils.unpackNestedDate(naissance, this::setDateNaissance);
 
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "lieuNaissance_nom")
-    private LieuNaissance lieuNaissance;
+        // Crée un nouvel objet LieuNaissance pour traiter le lieu de naissance.
+        LieuNaissance lieuNaissance = new LieuNaissance();
 
-    private String url;
+        // Vérifie si le lieu de naissance est présent dans la carte JSON et le définit s'il existe.
+        if (naissance.containsKey("lieuNaissance") && naissance.get("lieuNaissance") != null && !naissance.get("lieuNaissance").isEmpty()) {
+            lieuNaissance.setLieu(naissance.get("lieuNaissance"));
+            this.setLieuNaissance(lieuNaissance);
+        }
+    }
 
+    
     // Getters and setters
 
+    /**
+     * Obtient l'identifiant unique de l'acteur.
+     *
+     * @return L'identifiant unique de l'acteur.
+     */
     public String getId() {
         return id;
     }
 
+    /**
+     * Définit l'identifiant unique de l'acteur.
+     *
+     * @param id L'identifiant unique de l'acteur.
+     */
     public void setId(String id) {
         this.id = id;
     }
 
+    /**
+     * Obtient le nom ou l'identité de l'acteur.
+     *
+     * @return Le nom ou l'identité de l'acteur.
+     */
     public String getIdentite() {
         return identite;
     }
 
+    /**
+     * Définit le nom ou l'identité de l'acteur.
+     *
+     * @param identite Le nom ou l'identité de l'acteur.
+     */
     public void setIdentite(String identite) {
         this.identite = identite;
     }
 
-    public String getDateNaissance() {
-        return dateNaissance;
-    }
-
-    public void setDateNaissance(String dateNaissance) {
-        this.dateNaissance = dateNaissance;
-    }
-
-    public LieuNaissance getLieuNaissance() {
-        return lieuNaissance;
-    }
-
-    public void setLieuNaissance(LieuNaissance lieuNaissance) {
-        this.lieuNaissance = lieuNaissance;
-    }
-
+    /**
+     * Obtient l'URL associée à l'acteur.
+     *
+     * @return L'URL associée à l'acteur.
+     */
     public String getUrl() {
         return url;
     }
 
+    /**
+     * Définit l'URL associée à l'acteur.
+     *
+     * @param url L'URL associée à l'acteur.
+     */
     public void setUrl(String url) {
         this.url = url;
     }
 
+    /**
+     * Obtient la date de naissance de l'acteur.
+     *
+     * @return La date de naissance de l'acteur.
+     */
+    public Date getDateNaissance() {
+        return dateNaissance;
+    }
+
+    /**
+     * Définit la date de naissance de l'acteur.
+     *
+     * @param dateNaissance La date de naissance de l'acteur.
+     */
+    public void setDateNaissance(Date dateNaissance) {
+        this.dateNaissance = dateNaissance;
+    }
+
+    /**
+     * Obtient le lieu de naissance de l'acteur.
+     *
+     * @return Le lieu de naissance de l'acteur.
+     */
+    public LieuNaissance getLieuNaissance() {
+        return lieuNaissance;
+    }
+
+    /**
+     * Définit le lieu de naissance de l'acteur.
+     *
+     * @param lieuNaissance Le lieu de naissance de l'acteur.
+     */
+    public void setLieuNaissance(LieuNaissance lieuNaissance) {
+        this.lieuNaissance = lieuNaissance;
+    }
+
+    /**
+     * Obtient la liste des rôles joués par l'acteur.
+     *
+     * @return La liste des rôles joués par l'acteur.
+     */
     public List<Role> getRoles() {
         return roles;
     }
 
+    /**
+     * Définit la liste des rôles joués par l'acteur.
+     *
+     * @param roles La liste des rôles joués par l'acteur.
+     */
     public void setRoles(List<Role> roles) {
         this.roles = roles;
-    }
-
-    @JsonProperty("naissance")
-    private void unpackNested(Map<String, String> naissance) {
-        if (naissance != null) {
-            this.dateNaissance = naissance.get("dateNaissance");
-            LieuNaissance lieuNaissance = new LieuNaissance();
-            if (naissance.get("lieuNaissance") != "") {
-                lieuNaissance.setLieu(naissance.get("lieuNaissance"));
-                this.setLieuNaissance(lieuNaissance);
-            }
-        }
-    }
-
-    @Override
-    public String toString() {
-        return "\n Acteur [id=" + id + ", identite=" + identite + ", dateNaissance=" + dateNaissance + ", lieuNaissance=" + lieuNaissance + ", url=" + url + "] \n";
     }
 }
