@@ -61,7 +61,22 @@ public class Acteur {
         }
     }
 
-    
+    /**
+     * Retourne une représentation sous forme de chaîne de caractères de l'objet Acteur.
+     * La représentation contient l'identité de l'acteur, son URL, sa date de naissance, son lieu de naissance et ses roles.
+     *
+     * @return Une représentation sous forme de chaîne de caractères de l'objet Acteur.
+     */
+    @Override
+    public String toString() {
+        return "Acteur : " + identite +
+                ", URL : '" + url +
+                ", Date de naissance : " + dateNaissance +
+                ", Lieu de naissance : " + lieuNaissance +
+                ", Roles : " + roles;
+    }
+
+
     // Getters and setters
 
     /**

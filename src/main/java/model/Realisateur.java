@@ -54,6 +54,22 @@ public class Realisateur {
         }
     }
 
+    /**
+     * Retourne une représentation sous forme de chaîne de caractères de l'objet Réalisateur.
+     * La représentation contient l'identité du réalisateur, son URL, sa date de naissance, son lieu de naissance et ses films.
+     *
+     * @return Une représentation sous forme de chaîne de caractères de l'objet Réalisateur.
+     */
+    @Override
+    public String toString() {
+        return "Réalisateur : " + identite +
+                ", URL : '" + url +
+                ", Date de naissance : " + dateNaissance +
+                ", Lieu de naissance : " + lieuNaissance +
+                ", Films : " + films;
+
+    }
+
 
     // Getters et setters
 

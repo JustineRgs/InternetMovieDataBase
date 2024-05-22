@@ -47,9 +47,13 @@ public class Film {
     private String url;
     @Column(length = 60000)
     private String plot;
-    private String langue;
+
     private Date sortie;
     private String rating;
+
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "langue")
+    private Langue langue;
 
     @JsonProperty("genres")
     private void transformListToGenreList(List<String> noms) {
@@ -95,11 +99,11 @@ public class Film {
         this.plot = plot;
     }
 
-    public String getLangue() {
+    public Langue getLangue() {
         return langue;
     }
 
-    public void setLangue(String langue) {
+    public void setLangue(Langue langue) {
         this.langue = langue;
     }
 
