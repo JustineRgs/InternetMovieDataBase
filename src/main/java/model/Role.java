@@ -3,69 +3,111 @@ package model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.NamedQueries;
-import jakarta.persistence.NamedQuery;
+import jakarta.persistence.*;
 
 @Entity
+@Table(name = "ROLE")
 @JsonIgnoreProperties({"film"})
 public class Role {
     @Id
+    @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "Nom")
+    private String nom;
+
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "idFilm")
+    @JoinColumn(name = "ID_Film")
     private Film film;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "idActeur")
+    @JoinColumn(name = "ID_Acteur")
     private Acteur acteur;
 
-    private String nom;
+    public Role() {
+    }
 
+    /**
+     * Méthode toString pour afficher les informations du rôle.
+     *
+     * @return Une chaîne représentant le rôle.
+     */
+    @Override
+    public String toString() {
+        return "Role : " + nom + ", Film : " + film + ", Acteur : " + acteur;
+    }
+
+    /**
+     * Récupère l'identifiant unique du rôle.
+     *
+     * @return L'identifiant unique du rôle.
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     * Définit l'identifiant unique du rôle.
+     *
+     * @param id L'identifiant unique du rôle.
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     * Récupère le nom du personnage joué par l'acteur.
+     *
+     * @return Le nom du personnage.
+     */
     @JsonProperty("characterName")
     public String getNom() {
         return nom;
     }
 
+    /**
+     * Définit le nom du personnage joué par l'acteur.
+     *
+     * @param nom Le nom du personnage.
+     */
     public void setNom(String nom) {
         this.nom = nom;
     }
 
+    /**
+     * Récupère le film dans lequel le rôle est joué.
+     *
+     * @return Le film associé au rôle.
+     */
     public Film getFilm() {
         return film;
     }
 
+    /**
+     * Définit le film dans lequel le rôle est joué.
+     *
+     * @param film Le film associé au rôle.
+     */
     public void setFilm(Film film) {
         this.film = film;
     }
 
+    /**
+     * Récupère l'acteur jouant le rôle.
+     *
+     * @return L'acteur associé au rôle.
+     */
     public Acteur getActeur() {
         return acteur;
     }
 
+    /**
+     * Définit l'acteur jouant le rôle.
+     *
+     * @param acteur L'acteur associé au rôle.
+     */
     public void setActeur(Acteur acteur) {
         this.acteur = acteur;
     }
-
-    @Override
-    public String toString() {
-        return "Role [id=" + id + ", film=" + film + ", acteur=" + acteur + ", nom=" + nom + "]";
-    }
-
 }

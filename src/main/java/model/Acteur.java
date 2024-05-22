@@ -18,18 +18,18 @@ public class Acteur {
     @Column(name = "ID")
     private String id;
 
-    @Column(name = "identite")
+    @Column(name = "Identite")
     private String identite;
 
     @Column(name = "URL")
     private String url;
 
-    @Column(name = "dateNaissance")
+    @Column(name = "DateNaissance")
     @Temporal(TemporalType.DATE)
     private Date dateNaissance;
 
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "lieuNaissance")
+    @JoinColumn(name = "LieuNaissance")
     private LieuNaissance lieuNaissance;
 
     @OneToMany(targetEntity = Role.class, mappedBy = "acteur")
