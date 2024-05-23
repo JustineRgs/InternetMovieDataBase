@@ -83,17 +83,17 @@ public class Film {
 
     @Override
     public String toString() {
-        return "Film ID : " + id +
-                ", Nom : '" + nom +
-                ", URL : " + url +
-                ", Plot : " + plot +
-                ", Année de sortie : " + sortie +
-                ", Rating : " + rating +
-                ", Pays : " + pays +
-                ", Lieu de tournage : " + lieuTournage +
-                ", Réalisateur : " + realisateurs +
-                ", Genre : " + genreList +
-                ", Langue : " + langue;
+        return "Film ID : " + id + "\n" +
+                "Nom : " + nom + "\n" +
+                "URL : " + url + "\n" +
+                "Plot : " + plot + "\n" +
+                "Année de sortie : " + sortie + "\n" +
+                "Rating : " + rating + "\n" +
+                "Pays : " + pays + "\n" +
+                "Lieu de tournage : " + lieuTournage + "\n" +
+                "Réalisateur : " + realisateurs + "\n" +
+                "Genre : " + genreList + "\n" +
+                "Langue : " + langue + "\n";
     }
 
 

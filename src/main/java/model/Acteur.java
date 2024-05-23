@@ -1,7 +1,5 @@
 package model;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -13,6 +11,9 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "ACTEUR")
 @JsonIgnoreProperties(value = {"height", "roles"})
+@NamedQueries({
+        @NamedQuery(name = "Acteur.findByName", query = "SELECT a FROM Acteur a WHERE a.identite = :name")
+})
 public class Acteur {
     @Id
     @Column(name = "ID")

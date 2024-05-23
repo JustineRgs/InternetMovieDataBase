@@ -34,8 +34,7 @@ public class Langue {
      */
     @Override
     public String toString() {
-        return "Langue : " + label +
-                ", Films : " + films;
+        return label;
     }
 
 

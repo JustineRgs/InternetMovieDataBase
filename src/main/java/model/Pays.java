@@ -36,8 +36,7 @@ public class Pays {
      */
     @Override
     public String toString() {
-        return "Pays : " + nom +
-                ", URL : '" + url;
+        return nom;
     }
 
 

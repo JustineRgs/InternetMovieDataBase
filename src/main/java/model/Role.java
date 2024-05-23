@@ -8,6 +8,10 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "ROLE")
 @JsonIgnoreProperties({"film"})
+@NamedQueries({
+        @NamedQuery(name = "Role.findByActorId", query = "SELECT r FROM Role r WHERE r.acteur.id = :acteur"),
+        @NamedQuery(name = "Role.findByFilmId", query = "SELECT r from Role r WHERE r.film.id = :film")
+})
 public class Role {
     @Id
     @Column(name = "ID")
