@@ -90,7 +90,7 @@ public class Queries {
     private void afficherFilmographieActeur(EntityManager em, Scanner scanner) {
         System.out.println("Entrez le nom de l'acteur : ");
         String nomActeur = scanner.nextLine();
-        
+
         List<Acteur> listActeurs = ActeurDAO.getActeursByName(nomActeur, em);
         List<Film> listFilm = ActeurDAO.getFilmsFromActeurs(listActeurs, em);
         if (listFilm.isEmpty()) {
@@ -192,8 +192,8 @@ public class Queries {
         System.out.println("Entrez le nom du deuxième acteur : ");
         String deuxiemeActeur = scanner.nextLine();
 
-        List<Acteur> listPremierActeur = ActeurDAO.getActeursFromNames(premierActeur, deuxiemeActeur, em);
-        List<Film> listFilmsCommuns = FilmDAO.getFilmsSharedActors(listPremierActeur, em);
+        List<Acteur> listActeurs = ActeurDAO.getActeursFromNames(premierActeur, deuxiemeActeur, em);
+        List<Film> listFilmsCommuns = FilmDAO.getFilmsSharedActors(listActeurs, em);
 
         if (listFilmsCommuns.isEmpty()) {
             System.out.println();
@@ -225,8 +225,8 @@ public class Queries {
         String deuxiemeFilm = scanner.nextLine();
 
         List<Film> listFilms2 = FilmDAO.getFilmsByNames(premierFilm, deuxiemeFilm, em);
-
         List<Acteur> listActeursCommuns = ActeurDAO.getActeursCommunsFromFilms(listFilms2);
+        
         if (listActeursCommuns.isEmpty()) {
             System.out.println();
             System.out.println("Aucun acteurs communs entre ces deux films. ");

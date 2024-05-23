@@ -11,13 +11,31 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Cette classe contient les méthodes pour accéder aux données des films dans la base de données.
+ */
 public class FilmDAO {
+    /**
+     * Récupère une liste de films par leur nom.
+     *
+     * @param name Nom du film à rechercher.
+     * @param em   EntityManager pour accéder à la base de données.
+     * @return Liste des films correspondant au nom donné.
+     */
     public static List<Film> getFilmByName(String name, EntityManager em) {
         TypedQuery<Film> namedQueryFilm = em.createNamedQuery("Film.findByFilmName", Film.class);
         namedQueryFilm.setParameter("film", name);
         return namedQueryFilm.getResultList();
     }
 
+    /**
+     * Récupère une liste de films entre deux années données.
+     *
+     * @param anneeDebut Année de début de la période.
+     * @param anneeFin   Année de fin de la période.
+     * @param em         EntityManager pour accéder à la base de données.
+     * @return Liste des films entre les deux années données.
+     */
     public static List<Film> getFilmBetweenDates(int anneeDebut, int anneeFin, EntityManager em) {
         TypedQuery<Film> namedQueryFilm = em.createNamedQuery("Film.findByDate", Film.class);
         namedQueryFilm.setParameter("before", anneeDebut);
@@ -25,13 +43,20 @@ public class FilmDAO {
         return namedQueryFilm.getResultList();
     }
 
-    public static List<Film> getFilmsSharedActors(List<Acteur> listPremierActeur, EntityManager em) {
+    /**
+     * Récupère une liste de films communs à deux acteurs spécifiques.
+     *
+     * @param listActeurs Liste des acteurs à rechercher.
+     * @param em          EntityManager pour accéder à la base de données.
+     * @return Liste des films partageant les acteurs spécifiés.
+     */
+    public static List<Film> getFilmsSharedActors(List<Acteur> listActeurs, EntityManager em) {
         List<String> listIdFilm = new ArrayList<>();
         List<Film> listFilm = new ArrayList<>();
         boolean isFirst = true;
 
-        for (int i = 0; i < listPremierActeur.size(); i++) {
-            List<Role> listRole = RoleDAO.getRolesByActeurId(listPremierActeur.get(i).getId(), em);
+        for (int i = 0; i < listActeurs.size(); i++) {
+            List<Role> listRole = RoleDAO.getRolesByActeurId(listActeurs.get(i).getId(), em);
 
             for (int j = 0; j < listRole.size(); j++) {
 
@@ -50,6 +75,14 @@ public class FilmDAO {
         return listFilm;
     }
 
+    /**
+     * Récupère une liste de films par deux noms de film.
+     *
+     * @param name  Nom du premier film.
+     * @param name2 Nom du deuxième film.
+     * @param em    EntityManager pour accéder à la base de données.
+     * @return Liste des films correspondant aux deux noms donnés.
+     */
     public static List<Film> getFilmsByNames(String name, String name2, EntityManager em) {
         TypedQuery<Film> namedQueryFilm = em.createNamedQuery("Film.findByFilmName2", Film.class);
         namedQueryFilm.setParameter("film", name);
@@ -57,15 +90,24 @@ public class FilmDAO {
         return namedQueryFilm.getResultList();
     }
 
-    public static List<Film> findFilmsByActorAndDateRange(String actor, int startYear, int endYear, EntityManager em) {
+    /**
+     * Récupère une liste de films entre deux dates pour un acteur spécifique.
+     *
+     * @param actor      Nom de l'acteur à rechercher.
+     * @param anneeDebut Année de début de la période.
+     * @param anneeFin   Année de fin de la période.
+     * @param em         EntityManager pour accéder à la base de données.
+     * @return Liste des films dans lesquels l'acteur a joué pendant la période spécifiée.
+     */
+    public static List<Film> findFilmsByActorAndDateRange(String actor, int anneeDebut, int anneeFin, EntityManager em) {
         Calendar startCal = Calendar.getInstance();
-        startCal.set(Calendar.YEAR, startYear);
+        startCal.set(Calendar.YEAR, anneeDebut);
         startCal.set(Calendar.MONTH, Calendar.JANUARY);
         startCal.set(Calendar.DAY_OF_MONTH, 1);
         Date startDate = startCal.getTime();
 
         Calendar endCal = Calendar.getInstance();
-        endCal.set(Calendar.YEAR, endYear);
+        endCal.set(Calendar.YEAR, anneeFin);
         endCal.set(Calendar.MONTH, Calendar.DECEMBER);
         endCal.set(Calendar.DAY_OF_MONTH, 31);
         Date endDate = endCal.getTime();
