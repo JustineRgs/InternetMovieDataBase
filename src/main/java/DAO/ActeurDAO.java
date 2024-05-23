@@ -7,7 +7,9 @@ import model.Film;
 import model.Role;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ActeurDAO {
     public static List<Acteur> getActeursByName(String name, EntityManager em) {
@@ -46,5 +48,28 @@ public class ActeurDAO {
         namedQueryActeur.setParameter("name1", premierActeur);
         namedQueryActeur.setParameter("name2", deuxiemeActeur);
         return namedQueryActeur.getResultList();
+    }
+
+    public static List<Acteur> getActeursCommunsFromFilms(List<Film> listFilms) {
+        Set<Acteur> commonActors = new HashSet<>();
+        boolean first = true;
+
+        for (Film film : listFilms) {
+            List<Role> roles = film.getRoles();
+            Set<Acteur> currentActors = new HashSet<>();
+
+            for (Role role : roles) {
+                currentActors.add(role.getActeur());
+            }
+
+            if (first) {
+                commonActors.addAll(currentActors);
+                first = false;
+            } else {
+                commonActors.retainAll(currentActors);
+            }
+        }
+
+        return new ArrayList<>(commonActors);
     }
 }

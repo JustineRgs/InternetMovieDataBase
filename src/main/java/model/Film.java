@@ -16,6 +16,7 @@ import jakarta.persistence.*;
 @NamedQueries({
         @NamedQuery(name = "Film.findByFilmName", query = "SELECT f FROM Film f WHERE f.nom = :film"),
         @NamedQuery(name = "Film.findByDate", query = "SELECT f FROM Film f WHERE EXTRACT(YEAR FROM f.sortie) BETWEEN :before AND :after"),
+        @NamedQuery(name = "Film.findByFilmName2", query = "SELECT f FROM Film f WHERE f.nom = :film or f.nom = :film2")
 })
 public class Film {
     @Id

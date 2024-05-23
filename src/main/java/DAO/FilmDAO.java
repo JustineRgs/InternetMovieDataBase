@@ -47,4 +47,11 @@ public class FilmDAO {
         }
         return listFilm;
     }
+
+    public static List<Film> getFilmsByNames(String name, String name2, EntityManager em) {
+        TypedQuery<Film> namedQueryFilm = em.createNamedQuery("Film.findByFilmName2", Film.class);
+        namedQueryFilm.setParameter("film", name);
+        namedQueryFilm.setParameter("film2", name2);
+        return namedQueryFilm.getResultList();
+    }
 }

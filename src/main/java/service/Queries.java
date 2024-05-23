@@ -124,6 +124,23 @@ public class Queries {
                     String premierFilm = scanner.nextLine();
                     System.out.println("Entrez le titre du deuxième film : ");
                     String deuxiemeFilm = scanner.nextLine();
+
+                    List<Film> listFilms2 = FilmDAO.getFilmsByNames(premierFilm, deuxiemeFilm, em);
+                    List<Acteur> listActeursCommuns = ActeurDAO.getActeursCommunsFromFilms(listFilms2);
+                    if (listActeursCommuns.isEmpty()) {
+                        System.out.println();
+                        System.out.println("Aucun acteurs communs entre ces deux films. ");
+                        System.out.println();
+                    } else {
+                        System.out.println("****************************************************************************");
+                        System.out.println("Acteurs communs au film : " + premierFilm + " et " + deuxiemeFilm);
+                        System.out.println("****************************************************************************");
+                        System.out.println();
+                        for (Acteur acteur : listActeursCommuns) {
+                            System.out.println(acteur);
+                            System.out.println();
+                        }
+                    }
                     break;
                 case 6:
                     System.out.println("Entrez l'année de début : ");
