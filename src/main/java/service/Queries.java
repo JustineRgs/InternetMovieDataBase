@@ -1,11 +1,11 @@
 package service;
 
 import DAO.ActeurDAO;
+import DAO.FilmDAO;
 import jakarta.persistence.EntityManager;
 import model.Acteur;
 import model.Film;
 
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -45,6 +45,22 @@ public class Queries {
                 case 2:
                     System.out.println("Entrez le titre du film : ");
                     String titreFilm = scanner.nextLine();
+                    List<Film> listFilms = FilmDAO.getFilmByName(titreFilm, em);
+                    List<Acteur> castingFilms = ActeurDAO.getActeursFromFilm(listFilms, em);
+                    if (castingFilms.isEmpty()) {
+                        System.out.println();
+                        System.out.println("Aucun film trouvé");
+                        System.out.println();
+                    } else {
+                        System.out.println("******************************************");
+                        System.out.println("Casting du film : " + titreFilm);
+                        System.out.println("******************************************");
+                        System.out.println();
+                        for (Acteur acteur : castingFilms) {
+                            System.out.println(acteur);
+                            System.out.println();
+                        }
+                    }
                     break;
                 case 3:
                     System.out.println("Entrez l'année de début : ");

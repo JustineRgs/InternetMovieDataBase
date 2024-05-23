@@ -27,4 +27,17 @@ public class ActeurDAO {
         }
         return listFilms;
     }
+
+    public static List<Acteur> getActeursFromFilm(List<Film> listFilms, EntityManager em) {
+        List<Acteur> acteurList = new ArrayList<>();
+
+        for (Film film : listFilms) {
+
+            List<Role> listRole = RoleDAO.getRolesFromFilmId(film.getId(), em);
+            for (Role role : listRole) {
+                acteurList.add(role.getActeur());
+            }
+        }
+        return acteurList;
+    }
 }

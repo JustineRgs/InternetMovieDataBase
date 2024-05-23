@@ -36,7 +36,7 @@ public class LieuNaissance {
      */
     @Override
     public String toString() {
-        return "Lieu de naissance : " + lieu;
+        return "'" + lieu + "'";
     }
 
     /**

@@ -13,6 +13,9 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "FILM")
 @JsonIgnoreProperties(value = {"castingPrincipal"})
+@NamedQueries({
+        @NamedQuery(name = "Film.findByFilmName", query = "SELECT f FROM Film f WHERE f.nom = :film"),
+})
 public class Film {
     @Id
     @Column(name = "ID")

@@ -66,10 +66,9 @@ public class Acteur {
     @Override
     public String toString() {
         return "Acteur : " + identite +
-                ", URL : '" + url +
                 ", Date de naissance : " + dateNaissance +
                 ", Lieu de naissance : " + lieuNaissance +
-                ", Roles : " + roles;
+                ", URL : '" + url;
     }
 
 

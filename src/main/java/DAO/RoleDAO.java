@@ -13,4 +13,12 @@ public class RoleDAO {
         namedQueryRole.setParameter("acteur", idActeur);
         return namedQueryRole.getResultList();
     }
+
+    public static List<Role> getRolesFromFilmId(String idFilm, EntityManager em) {
+        TypedQuery<Role> namedQueryRole = em.createNamedQuery("Role.findByFilmId", Role.class);
+
+        namedQueryRole.setParameter("film", idFilm);
+        List<Role> listRole = namedQueryRole.getResultList();
+        return listRole;
+    }
 }
