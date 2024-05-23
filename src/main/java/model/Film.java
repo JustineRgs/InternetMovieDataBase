@@ -42,7 +42,7 @@ public class Film {
     private Pays pays;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "ID_Lieu")
+    @JoinColumn(name = "ID_LieuTournage")
     private LieuTournage lieuTournage;
 
     @ManyToMany(cascade = CascadeType.MERGE)
@@ -57,7 +57,7 @@ public class Film {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "Genre_Film_ASSO",
             joinColumns = @JoinColumn(name = "ID_Film"),
-            inverseJoinColumns = @JoinColumn(name = "ID_Genre"))
+            inverseJoinColumns = @JoinColumn(name = "NomGenre"))
     private List<Genre> genreList = new ArrayList<>();
 
     @ManyToOne(cascade = CascadeType.MERGE)

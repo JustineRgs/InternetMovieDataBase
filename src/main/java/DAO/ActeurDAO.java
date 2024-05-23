@@ -40,4 +40,11 @@ public class ActeurDAO {
         }
         return acteurList;
     }
+
+    public static List<Acteur> getActeursFromNames(String premierActeur, String deuxiemeActeur, EntityManager em) {
+        TypedQuery<Acteur> namedQueryActeur = em.createNamedQuery("Acteur.findById", Acteur.class);
+        namedQueryActeur.setParameter("name1", premierActeur);
+        namedQueryActeur.setParameter("name2", deuxiemeActeur);
+        return namedQueryActeur.getResultList();
+    }
 }
