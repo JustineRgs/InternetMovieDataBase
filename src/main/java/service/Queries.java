@@ -127,6 +127,7 @@ public class Queries {
             System.out.println("Aucun film trouvé");
             System.out.println();
         } else {
+            System.out.println();
             System.out.println("****************************************************************************");
             System.out.println("Casting du film : " + titreFilm);
             System.out.println("****************************************************************************");
@@ -153,7 +154,9 @@ public class Queries {
             int anneeFin = scanner.nextInt();
 
             if (anneeDebut > anneeFin) {
+                System.out.println();
                 System.out.println("L'année de début ne peut pas être supérieure à l'année de fin.");
+                System.out.println();
                 return;
             }
             scanner.nextLine();
@@ -197,9 +200,10 @@ public class Queries {
 
         if (listFilmsCommuns.isEmpty()) {
             System.out.println();
-            System.out.println("Aucun film trouvé entre ces deux années. ");
+            System.out.println("Aucun film communs trouvé entre ces deux acteurs. ");
             System.out.println();
         } else {
+            System.out.println();
             System.out.println("****************************************************************************");
             System.out.println("Films tournés communs à : " + premierActeur + " et " + deuxiemeActeur);
             System.out.println("****************************************************************************");
@@ -226,12 +230,13 @@ public class Queries {
 
         List<Film> listFilms2 = FilmDAO.getFilmsByNames(premierFilm, deuxiemeFilm, em);
         List<Acteur> listActeursCommuns = ActeurDAO.getActeursCommunsFromFilms(listFilms2);
-        
+
         if (listActeursCommuns.isEmpty()) {
             System.out.println();
             System.out.println("Aucun acteurs communs entre ces deux films. ");
             System.out.println();
         } else {
+            System.out.println();
             System.out.println("****************************************************************************");
             System.out.println("Acteurs communs au film : " + premierFilm + " et " + deuxiemeFilm);
             System.out.println("****************************************************************************");
@@ -261,7 +266,9 @@ public class Queries {
         String nomActeur = scanner.nextLine();
 
         if (anneeDebut > anneeFin) {
+            System.out.println();
             System.out.println("L'année de début ne peut pas être supérieure à l'année de fin.");
+            System.out.println();
             return;
         }
 
@@ -271,8 +278,9 @@ public class Queries {
             System.out.println("Aucun film trouvé pour cet acteur entre les deux dates. ");
             System.out.println();
         } else {
+            System.out.println();
             System.out.println("***************************************************************************************************");
-            System.out.println("Film(s) sorti(s) entre : " + anneeDebut + " et " + anneeFin + " avec l'acteur : " + nomActeur + " : ");
+            System.out.println("Film(s) sorti(s) entre " + anneeDebut + " et " + anneeFin + " avec l'acteur " + nomActeur + " : ");
             System.out.println("***************************************************************************************************");
             System.out.println();
             for (Film film : listFilmsBetweenDate) {
