@@ -6,6 +6,7 @@ import jakarta.persistence.EntityManager;
 import model.Acteur;
 import model.Film;
 
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -63,10 +64,35 @@ public class Queries {
                     }
                     break;
                 case 3:
-                    System.out.println("Entrez l'année de début : ");
-                    int anneeDebut = scanner.nextInt();
-                    System.out.println("Entrez l'année de fin : ");
-                    int anneeFin = scanner.nextInt();
+                    try {
+                        System.out.println("Entrez l'année de début : ");
+                        int anneeDebut = scanner.nextInt();
+                        System.out.println("Entrez l'année de fin : ");
+                        int anneeFin = scanner.nextInt();
+                        if (anneeDebut > anneeFin) {
+                            System.out.println("L'année de début ne peut pas être supérieure à l'année de fin.");
+                            break;
+                        }
+                        scanner.nextLine();
+                        List<Film> listFilmsDate = FilmDAO.getFilmBetweenDates(anneeDebut, anneeFin, em);
+                        if (listFilmsDate.isEmpty()) {
+                            System.out.println();
+                            System.out.println("Aucun film trouvé entre ces deux années");
+                            System.out.println();
+                        } else {
+                            System.out.println("******************************************");
+                            System.out.println("Films tournés entre : " + anneeDebut + " et " + anneeFin);
+                            System.out.println("******************************************");
+                            System.out.println();
+                            for (Film film : listFilmsDate) {
+                                System.out.println(film);
+                                System.out.println();
+                            }
+                        }
+                    } catch (InputMismatchException e) {
+                        System.out.println("Veuillez entrer des années valides.");
+                        scanner.nextLine();
+                    }
                     break;
                 case 4:
                     System.out.println("Entrez le nom du premier acteur : ");

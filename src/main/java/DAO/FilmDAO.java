@@ -13,4 +13,11 @@ public class FilmDAO {
         namedQueryFilm.setParameter("film", name);
         return namedQueryFilm.getResultList();
     }
+
+    public static List<Film> getFilmBetweenDates(int anneeDebut, int anneeFin, EntityManager em) {
+        TypedQuery<Film> namedQueryFilm = em.createNamedQuery("Film.findByDate", Film.class);
+        namedQueryFilm.setParameter("before", anneeDebut);
+        namedQueryFilm.setParameter("after", anneeFin);
+        return namedQueryFilm.getResultList();
+    }
 }

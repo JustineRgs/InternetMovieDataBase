@@ -15,6 +15,7 @@ import jakarta.persistence.*;
 @JsonIgnoreProperties(value = {"castingPrincipal"})
 @NamedQueries({
         @NamedQuery(name = "Film.findByFilmName", query = "SELECT f FROM Film f WHERE f.nom = :film"),
+        @NamedQuery(name = "Film.findByDate", query = "SELECT f FROM Film f WHERE EXTRACT(YEAR FROM f.sortie) BETWEEN :before AND :after"),
 })
 public class Film {
     @Id
