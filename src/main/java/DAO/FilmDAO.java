@@ -7,6 +7,8 @@ import model.Film;
 import model.Role;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class FilmDAO {
@@ -53,5 +55,25 @@ public class FilmDAO {
         namedQueryFilm.setParameter("film", name);
         namedQueryFilm.setParameter("film2", name2);
         return namedQueryFilm.getResultList();
+    }
+
+    public static List<Film> findFilmsByActorAndDateRange(String actor, int startYear, int endYear, EntityManager em) {
+        Calendar startCal = Calendar.getInstance();
+        startCal.set(Calendar.YEAR, startYear);
+        startCal.set(Calendar.MONTH, Calendar.JANUARY);
+        startCal.set(Calendar.DAY_OF_MONTH, 1);
+        Date startDate = startCal.getTime();
+
+        Calendar endCal = Calendar.getInstance();
+        endCal.set(Calendar.YEAR, endYear);
+        endCal.set(Calendar.MONTH, Calendar.DECEMBER);
+        endCal.set(Calendar.DAY_OF_MONTH, 31);
+        Date endDate = endCal.getTime();
+
+        TypedQuery<Film> query = em.createNamedQuery("Film.findByActorAndDateRange", Film.class);
+        query.setParameter("actor", actor);
+        query.setParameter("startDate", startDate);
+        query.setParameter("endDate", endDate);
+        return query.getResultList();
     }
 }
